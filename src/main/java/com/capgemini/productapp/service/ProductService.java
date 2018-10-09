@@ -11,10 +11,9 @@ public interface ProductService {
 	public Product updateProduct(Product product);
 	public void delete(Product product);
 	public Product findProductById(int productId)throws ProductNotFoundException;
-   /* public Product findProductByName(String productName)throws ProductNotFoundException;
-    public Product findProductByCategory(double minPrice,double maxPrice) throws ProductNotFoundException;
-*/
-public List<Product> getProductByCategory(String category);
-	
+	public List<Product> getProductByCategory(String category);
+
 	public List<Product> getProductByCategoryAndPrice(String category, double from, double to);
+
+	public List<Product> getProductByName(String productName);
 }

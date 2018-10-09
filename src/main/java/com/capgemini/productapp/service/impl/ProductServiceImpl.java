@@ -42,9 +42,9 @@ public class ProductServiceImpl implements ProductService {
 		throw new ProductNotFoundException("Product does not exists");
 	}
 
+
 	@Override
 	public List<Product> getProductByCategory(String category) {
-		
 		return productRepository.findByProductCategory(category);
 	}
 
@@ -53,23 +53,9 @@ public class ProductServiceImpl implements ProductService {
 		return productRepository.findByProductPrice(category, from, to);
 	}
 
-
-	/*@Override
-	public Product findProductByName(String productName) throws ProductNotFoundException {
-	   Optional<Product> optionalProduct = productRepository.findProductByName(productName);
-	   if(optionalProduct.isPresent())
-		   return optionalProduct.get();
-	   throw new ProductNotFoundException("Product doesnot exists");
-	}
-
 	@Override
-	public Product findProductByCategory(double minPrice, double maxPrice) throws ProductNotFoundException {
-		
-		Optional<Product> optionalProduct = productRepository.findProductByCategory(minPrice, maxPrice);
-		if(optionalProduct.isPresent())
-			return optionalProduct.get();
-		throw new ProductNotFoundException("Product doesnot exists");
-	}*/
-
+	public List<Product> getProductByName(String productName) {
+		return productRepository.findByProductName(productName);
+	}
 }
 

@@ -58,11 +58,27 @@ public class ProductController {
 	}
 	
 	
+	@GetMapping("/products/categoryandprice")
+	public ResponseEntity<List<Product>> findProductById(@RequestParam String category, @RequestParam double from,
+			@RequestParam double to) {
+		List<Product> productFromDb = productService.getProductByCategoryAndPrice(category, from, to);
+		System.out.println(productFromDb);
+		return new ResponseEntity<List<Product>>(productFromDb, HttpStatus.OK);
+
+	}
+
+	@GetMapping("/products/category")
+	public ResponseEntity<List<Product>> findProductByCategory(@RequestParam String category) {
+		List<Product> productFromDb = productService.getProductByCategory(category);
+		System.out.println(productFromDb);
+		return new ResponseEntity<List<Product>>(productFromDb, HttpStatus.OK);
+
+	}
 
 	@GetMapping("/products/search")
-	public ResponseEntity<List<Product>> findProductById(@RequestParam String category, @RequestParam double from, @RequestParam double to) {
-
-		List<Product> productFromDb = productService.getProductByCategoryAndPrice(category, from, to);
+	public ResponseEntity<List<Product>> findProductByName(@RequestParam String productName) {
+		System.out.println(productName);
+		List<Product> productFromDb = productService.getProductByName(productName);
 		System.out.println(productFromDb);
 		return new ResponseEntity<List<Product>>(productFromDb, HttpStatus.OK);
 
@@ -87,19 +103,7 @@ public class ProductController {
 
 	
 
-	/*@GetMapping("/products/{productName}")
-	public ResponseEntity<Product> findProductByName(@PathVariable String productName) {
-		try {
-			Product productFromDb = 
-					productService.findProductByName(productName);
-			return new ResponseEntity<Product>(productFromDb, HttpStatus.OK);
-		}
-		catch(ProductNotFoundException exception) {
-			
-		}
-		return new ResponseEntity<Product>(HttpStatus.NOT_FOUND);
-	}
-	*/
+	
 	
 		
 		
