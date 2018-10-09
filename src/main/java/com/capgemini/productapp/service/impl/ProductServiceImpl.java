@@ -44,18 +44,32 @@ public class ProductServiceImpl implements ProductService {
 
 
 	@Override
-	public List<Product> getProductByCategory(String category) {
-		return productRepository.findByProductCategory(category);
+	public List<Product> findByProductName(String productName) throws ProductNotFoundException {
+		List<Product> productList = productRepository.findByProductName(productName);
+		if (!productList.isEmpty()) {
+			return productList;
+		}
+		throw new ProductNotFoundException("Product does not exists");
 	}
 
 	@Override
-	public List<Product> getProductByCategoryAndPrice(String category, double from, double to) {
-		return productRepository.findByProductPrice(category, from, to);
+	public List<Product> findByProductCategory(String productCategory) throws ProductNotFoundException {
+		List<Product> productList = productRepository.findByProductCategory(productCategory);
+		if (!productList.isEmpty()) {
+			return productList;
+		}
+		throw new ProductNotFoundException("Product does not exists");
 	}
 
 	@Override
-	public List<Product> getProductByName(String productName) {
-		return productRepository.findByProductName(productName);
+	public List<Product> findByProductByRange(String productCategory, double min, double max)
+			throws ProductNotFoundException {
+		List<Product> productList = productRepository.findByProductByRange(productCategory, min, max);
+		System.out.println(productList);
+		if (!productList.isEmpty()) {
+			return productList;
+		}
+		throw new ProductNotFoundException("Product does not exists");
 	}
 }
 

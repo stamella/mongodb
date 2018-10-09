@@ -57,31 +57,19 @@ public class ProductController {
 		return new ResponseEntity<Product>(HttpStatus.NOT_FOUND);
 	}
 	
+	@GetMapping("/products/name")
+	public ResponseEntity<List<Product>> findProductByName(@RequestParam String productName) throws ProductNotFoundException {
+		return new ResponseEntity<List<Product>>(productService.findByProductName(productName), HttpStatus.OK);
+	}
 	
-	@GetMapping("/products/categoryandprice")
-	public ResponseEntity<List<Product>> findProductById(@RequestParam String category, @RequestParam double from,
-			@RequestParam double to) {
-		List<Product> productFromDb = productService.getProductByCategoryAndPrice(category, from, to);
-		System.out.println(productFromDb);
-		return new ResponseEntity<List<Product>>(productFromDb, HttpStatus.OK);
-
-	}
-
 	@GetMapping("/products/category")
-	public ResponseEntity<List<Product>> findProductByCategory(@RequestParam String category) {
-		List<Product> productFromDb = productService.getProductByCategory(category);
-		System.out.println(productFromDb);
-		return new ResponseEntity<List<Product>>(productFromDb, HttpStatus.OK);
-
+	public ResponseEntity<List<Product>> findProductByCategory(@RequestParam String productCategory) throws ProductNotFoundException {
+		return new ResponseEntity<List<Product>>(productService.findByProductCategory(productCategory), HttpStatus.OK);
 	}
-
-	@GetMapping("/products/search")
-	public ResponseEntity<List<Product>> findProductByName(@RequestParam String productName) {
-		System.out.println(productName);
-		List<Product> productFromDb = productService.getProductByName(productName);
-		System.out.println(productFromDb);
-		return new ResponseEntity<List<Product>>(productFromDb, HttpStatus.OK);
-
+	
+	@GetMapping("/products/range")
+	public ResponseEntity<List<Product>> findByProductByRange(@RequestParam String productCategory, double min , double max) throws ProductNotFoundException {
+		return new ResponseEntity<List<Product>>(productService.findByProductByRange(productCategory, min, max), HttpStatus.OK);
 	}
 	
 	@DeleteMapping("/products/{productId}")

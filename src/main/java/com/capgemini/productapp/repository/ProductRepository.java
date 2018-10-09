@@ -13,12 +13,13 @@ import com.capgemini.productapp.exception.ProductNotFoundException;
 public interface ProductRepository extends MongoRepository<Product, Integer> {
     
 
+
+	@Query("{'productName':?0}")
+	public List<Product> findByProductName(String name);
+
 	@Query("{'productCategory':?0}")
-	public List<Product> findByProductCategory(String productCategory);
+	public List<Product> findByProductCategory(String category);
 
-	@Query("{'productCategory':?0, 'productPrice': {$gt : ?1, $lt : ?2}}")
-	public List<Product> findByProductPrice(String productCategory, double from, double to);
-
-	@Query("{'productName': {'$regex': ?0}}")
-	public List<Product> findByProductName(String productName);
+		@Query("{'productCategory':?0, 'productPrice': {$gt: ?1, $lt:?2}}")
+	public List<Product> findByProductByRange(String productCategory, double min, double max);
 }
